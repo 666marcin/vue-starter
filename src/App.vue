@@ -8,10 +8,8 @@
       Zalogowany jako {{ email }}
       <a @click="logOut()"> Wyloguj</a>
     </div>
-    <div v-else="isAuthenticated">
-      <label>Zaloguj siê e-mailem</label>
-      <input type="email" v-model="email">
-	  <button @click="logIn()">Wchodzê</button>
+    <div v-else>
+      <login-form @login="logIn($event)"></login-form>
     </div>
     
     <!-- 
@@ -25,8 +23,11 @@
 
 <script>
 import HelloWorld from './components/HelloWorld.vue'
+import "milligram";
+import LoginForm from "./LoginForm";
 
 export default {
+	components: {LoginForm},
 	data() {
 		  return {
 		    email: '',
@@ -37,8 +38,8 @@ export default {
 		  alertMyEmail() {
 		    alert(this.email);
 		  },
-		  logIn() {
-			  this.isAuthenticated = true;
+		  logIn(username) {
+			  this.isAuthenticated = username;
 		  },
 		  logOut() {
 			  this.isAuthenticated = false;
